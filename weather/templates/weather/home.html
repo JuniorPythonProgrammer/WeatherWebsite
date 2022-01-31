@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="css/home.css">
+
+{% endblock %}
+
+{% block header %}
+
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand ">Weather</a>
+        </div>
+    </nav>
+</header>
+
+{% endblock %}
+
+{% block main %}
+
+<main>
+    <div class="container d-flex h-100">
+
+        <div>
+            <form action="{% url 'weather_now_url' %}">
+                <input type="search" class="form-control" aria-label="Search" placeholder="Search" name="search">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}

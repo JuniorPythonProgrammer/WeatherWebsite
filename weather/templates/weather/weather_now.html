@@ -1,0 +1,39 @@
+{% extends 'weather/base_weather.html' %}
+
+{% block main %}
+
+<main>
+    <div class="container-fluid mt-5">
+        <div class="text-center">
+            <h1>Погода в {{city}}:</h1>
+        </div>
+    </div>
+    <div class="container-fluid mt-3">
+        <div class="text-center">
+            <div class="btn-group ">
+                <a href="D:\MyProject\parser\boot_index.html" class="btn btn-secondary">сейчас</a>
+                <a href="D:\MyProject\parser\boot_index7.html" class="btn btn-secondary active" aria-current="page">8
+                    дней</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid max-width-t text-center mt-3">
+        <div class="row align-items-center">
+            <div class="col">
+                <img src=" http://openweathermap.org/img/wn/{{weathon_icon}}@4x.png" />
+                <h3>{{description_weather}}</h2>
+            </div>
+            <div class="col">
+                <h1 class="temp">{{cur_temp}}</h1>
+            </div>
+            <div class="col">
+                <h3>скорость ветра: {{wind_speed}} м/с</h3>
+                <h3>давление: {{pressure}} мм рт.ст</h3>
+                <h3>влажность: {{humidity}} %</h3>
+                <h3>осадки: {{precipitation}} мм</h3>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
