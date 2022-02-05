@@ -1,17 +1,11 @@
 {% extends 'base.html' %}
 
-{% block styles %}
-
-<link rel="stylesheet" href="css/home.css">
-
-{% endblock %}
-
 {% block header %}
 
 <header>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand ">Weather</a>
+            <a href="{% url 'home_url' %}" class="navbar-brand ">Weather</a>
         </div>
     </nav>
 </header>
@@ -20,16 +14,14 @@
 
 {% block main %}
 
-<main>
-    <div class="container d-flex h-100">
-
-        <div>
+<main style="height:100vh;">
+    <div class="container d-flex h-100 justify-content-center align-items-center">
+        <div style="height:300px; width:600px;" class="text-center">
             <form action="{% url 'search_weather_now_url' %}">
-                <input type="search" class="form-control" aria-label="Search" placeholder="Search" name="search">
-                <button type="submit" class="btn btn-primary">Search</button>
+                <input type="search" class="form-control text-center mb-3" aria-label="Search" placeholder="Введите город" name="search">
+                <button type="submit" class="btn btn-secondary" style="width: 7rem;">Поиск</button>
             </form>
         </div>
-
     </div>
 </main>
 
