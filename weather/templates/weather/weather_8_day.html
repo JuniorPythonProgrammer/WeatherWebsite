@@ -11,9 +11,8 @@
     <div class="container-fluid mt-3">
         <div class="text-center">
             <div class="btn-group ">
-                <a href="" class="btn btn-secondary">сейчас</a>
-                <a href="" class="btn btn-secondary active" aria-current="page">8
-                    дней</a>
+                <a href="{% url 'radio_button_weather_now_url' city=city %}" class="btn btn-secondary">сейчас</a>
+                <a href="" class="btn btn-secondary active" aria-current="page">8 дней</a>
             </div>
         </div>
     </div>
