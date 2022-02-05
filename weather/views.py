@@ -21,7 +21,7 @@ def weather_now(request):
             'pressure': data["main"]["pressure"],
             'wind_speed': round(data["wind"]["speed"]),
             'description_weather': data["weather"][0]["description"],
-            'weathon_icon': data["weather"][0]["icon"],
+            'weathen_icon': data["weather"][0]["icon"],
             'precipitation': 0,
         }
         if 'rain' in data and 'snow' in data:
@@ -35,3 +35,72 @@ def weather_now(request):
     else:
         pass
     return render(request, 'weather/weather_now.html', context)
+
+def weather_8_day(request, city):
+    r = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={open_weather_token}&units=metric&lang=ru")
+    data = r.json()
+
+    lat = data["coord"]["lat"]
+    lon = data["coord"]["lon"]
+
+    r = requests.get(f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=current,minutely,hourly,alerts&appid={open_weather_token}&units=metric&lang=ru")
+    data = r.json()
+
+    context = {
+        'city': city,
+        'weather_8day':[
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            },
+            {
+                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
+                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
+            }
+        ]
+    }
+
+    for day in range(8):
+        context["weather_8day"][day]["date"] = datetime.datetime.fromtimestamp(data["daily"][day]["dt"]).strftime('%d.%m.%Y')
+        context["weather_8day"][day]["max_temp"] = round(data["daily"][day]["temp"]["max"])
+        context["weather_8day"][day]["min_temp"] = round(data["daily"][day]["temp"]["min"])
+        context["weather_8day"][day]["humidity"] = data["daily"][day]["humidity"]
+        context["weather_8day"][day]["pressure"] = data["daily"][day]["pressure"]
+        context["weather_8day"][day]["wind_speed"] = round(data["daily"][day]["wind_speed"])
+        context["weather_8day"][day]["description_weather"] = data["daily"][day]["weather"][0]["description"]
+        context["weather_8day"][day]["weather_icon"] = data["daily"][day]["weather"][0]["icon"]
+
+        if 'rain' in data["daily"][day] and 'snow' in data["daily"][day]:
+            context["weather_8day"][day]["precipitation"] = round(data["daily"][day]["rain"] + data["daily"][day]["snow"], 1)
+        elif 'rain' in data["daily"][day]:
+            context["weather_8day"][day]["precipitation"] = round(data["daily"][day]["rain"], 1)
+        elif 'snow' in data["daily"][day]:
+            context["weather_8day"][day]["precipitation"] = round(data["daily"][day]["snow"], 1)
+        else:
+            context["weather_8day"][day]["precipitation"] = 0
+        
+    return render(request, 'weather/weather_8_day.html', context)

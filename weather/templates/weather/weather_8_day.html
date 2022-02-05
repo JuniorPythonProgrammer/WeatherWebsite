@@ -1,0 +1,66 @@
+{% extends 'weather/base_weather.html' %}
+
+{% block main %}
+
+<main>
+    <div class="container-fluid mt-5">
+        <div class="text-center">
+            <h1>Weather in {{city}}:</h1>
+        </div>
+    </div>
+    <div class="container-fluid mt-3">
+        <div class="text-center">
+            <div class="btn-group ">
+                <a href="" class="btn btn-secondary">сейчас</a>
+                <a href="" class="btn btn-secondary active" aria-current="page">8
+                    дней</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid max-width-t mt-3 mb-3">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+
+            {% for weather in weather_8day %}
+
+            <div class="col">
+                <div class="card text-white bg-secondary" style="width: 15rem;">
+                    <div class="card-body text-center">
+                        <p>{{weather.date}}</p>
+                    </div>
+                    <img src="http://openweathermap.org/img/wn/{{weather.weather_icon}}@4x.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title">
+                                        {% if weather.max_temp > 0 %}
+                                            +{{weather.max_temp}}
+                                        {% else %}
+                                            {{weather.max_temp}}
+                                        {% endif %}
+                                        </h5>
+                                </div>
+                                <div class="col">
+                                    <h5 class="card-title text-center">{{weather.min_temp}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-white bg-secondary">{{weather.description_weather}}</li>
+                        <li class="list-group-item text-white bg-secondary">скорость ветра: {{weather.wind_speed}} м/с</li>
+                        <li class="list-group-item text-white bg-secondary">давление: {{weather.pressure}} мм рт.ст</li>
+                        <li class="list-group-item text-white bg-secondary">влажность: {{weather.humidity}} %</li>
+                        <li class="list-group-item text-white bg-secondary">осадки: {{weather.precipitation}} мм</li>
+                    </ul>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}
