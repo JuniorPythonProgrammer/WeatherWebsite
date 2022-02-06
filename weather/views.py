@@ -18,7 +18,7 @@ def weather_now(city):
         'pressure': data["main"]["pressure"],
         'wind_speed': round(data["wind"]["speed"]),
         'description_weather': data["weather"][0]["description"],
-        'weathen_icon': data["weather"][0]["icon"],
+        'weather_icon': data["weather"][0]["icon"],
         'precipitation': 0,
     }
     if 'rain' in data and 'snow' in data:
@@ -58,43 +58,12 @@ def weather_8_day(request, city):
 
     context = {
         'city': city,
-        'weather_8day':[
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            },
-            {
-                'date': None, 'max_temp': None, 'min_temp': None, 'humidity': None, 'pressure': None,
-                'precipitation': None, 'wind_speed': None, 'description_weather': None, 'weather_icon': None
-            }
-        ]
+        'weather_8day':[]
     }
 
     for day in range(8):
+        context["weather_8day"].append(dict.fromkeys(['date', 'max_temp', 'min_temp', 'humidity', 'pressure', 'precipitation',
+         'wind_speed', 'description_weather', 'weather_icon']))
         context["weather_8day"][day]["date"] = datetime.datetime.fromtimestamp(data["daily"][day]["dt"]).strftime('%d.%m.%Y')
         context["weather_8day"][day]["max_temp"] = round(data["daily"][day]["temp"]["max"])
         context["weather_8day"][day]["min_temp"] = round(data["daily"][day]["temp"]["min"])
