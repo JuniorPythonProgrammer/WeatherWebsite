@@ -23,7 +23,13 @@
                 <h3>{{description_weather}}</h2>
             </div>
             <div class="col">
-                <h1 class="temp">{{cur_temp}}</h1>
+                <h1 class="temp">
+                    {% if cur_temp > 0 %}
+                        +{{cur_temp}}
+                    {% else %}
+                        {{cur_temp}}
+                    {% endif %}
+                </h1>
             </div>
             <div class="col">
                 <h3>скорость ветра: {{wind_speed}} м/с</h3>

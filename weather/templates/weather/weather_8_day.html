@@ -41,7 +41,13 @@
                                         </h5>
                                 </div>
                                 <div class="col">
-                                    <h5 class="card-title text-center">{{weather.min_temp}}</h5>
+                                    <h5 class="card-title text-center">
+                                        {% if weather.min_temp > 0 %}
+                                            +{{weather.min_temp}}
+                                        {% else %}
+                                            {{weather.min_temp}}
+                                        {% endif %}
+                                    </h5>
                                 </div>
                             </div>
                         </div>
